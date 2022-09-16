@@ -9,10 +9,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method !== "POST") {
         errorHandler("Request Method Not Allowed", res)
     }
+    const {name, email, password} = req.body
 
     try {
         await connectToDatabase()
-        const {name, email, password} = req.body
         let user = await User.findOne({email});
         if (user) {
             errorHandler("User already exists", 400)
@@ -26,7 +26,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         })
 
 
-        return user().save
+        await user().save
+        return res.json(user)
 
     } catch (error: any) {
         res.status(500).json({message: error.message, trace: error.stack})
