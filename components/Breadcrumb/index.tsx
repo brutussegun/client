@@ -4,19 +4,28 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { pathnames } from "../../hooks/pathnames";
+import { Children } from "react";
 
 function Breadcrumb(props: any) {
   const { breadcrumb, clientName } = props;
   const { pathname, asPath } = useRouter();
   const checkpath = () => {
-    const thispath = pathname;
-    if (thispath === pathnames.home) return "Dashboard";
+    if (pathname === pathnames.client) return "Clients";
+    if (pathname === pathnames.projects)
+      Breadcrumb.defaultProps.breadcrumb.push({
+        href: pathname,
+        header: "Projects",
+      });
   };
-  const renderBreadcrumbs = breadcrumb.map((crumb: any, index: number) => {
+
+  const renderBreadcrumbs = breadcrumb.map((crumb: any) => {
     return (
       <>
-        <Link key={index} href={crumb.href}>
-          {crumb.header}
+        <Link key={crumb.href} href={crumb.href}>
+          <a>
+            {crumb.header}
+            <span className="mx-2">&gt;</span>
+          </a>
         </Link>
       </>
     );
@@ -28,10 +37,9 @@ function Breadcrumb(props: any) {
         <div>
           <div className="flex items-center text-primaryBlue text-sm">
             {renderBreadcrumbs}
-            <span className="mx-2">&gt;</span>
           </div>
           <h4 className="text-2xl mt-2 font-bold leading-tight text-gray-800 dark:text-gray-100">
-            {checkpath() ? checkpath() : clientName}
+            {checkpath() ? checkpath() : "FIX THIS"}
           </h4>
         </div>
       </div>
@@ -47,10 +55,10 @@ Breadcrumb.propTypes = {
 Breadcrumb.defaultProps = {
   breadcrumb: [
     {
-      href: "/",
-      header: "Home",
+      href: pathnames.client,
+      header: "Client",
     },
   ],
 };
 
-export default Breadcrumb;
+export { Breadcrumb };

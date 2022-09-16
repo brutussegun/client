@@ -4,10 +4,10 @@ const pathnames = {
   login: "/authentication/login",
   logout: "/logout",
   dashboard: "/dashboard",
-  clients: "/client/clients",
+  client: "/client",
   projects: "/client/projects",
-  invoices: "/clients/projects/invoices",
-  history: "/clients/history",
+  invoices: "/client/projects/invoices",
+  history: "/client/history",
   profile: "/dashboard/profile",
 };
 

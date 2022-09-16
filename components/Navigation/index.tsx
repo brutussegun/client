@@ -82,15 +82,66 @@ const resources = [
     icon: ShieldCheckIcon,
   },
 ];
-const recentPosts = [
-  { id: 1, name: "Boost your conversion rate", href: "#" },
-  {
-    id: 2,
-    name: "How to use search engine optimization to drive traffic to your site",
-    href: "#",
-  },
-  { id: 3, name: "Improve your customer experience", href: "#" },
-];
+
+const navigationLinks = {
+  solution: [
+    {
+      name: "Clients",
+      description: "View all Clients in the application",
+      href: "#",
+      icon: ChartBarIcon,
+    },
+    {
+      name: "Projects",
+      description: "View all Projects in the application",
+      href: "#",
+      icon: CursorArrowRaysIcon,
+    },
+
+    {
+      name: "Integrations",
+      description: "Connect with third-party tools that you're already using.",
+      href: "#",
+      icon: Squares2X2Icon,
+    },
+    {
+      name: "Automations",
+      description:
+        "Build strategic funnels that will drive your invoicing capabilities",
+      href: "#",
+      icon: ArrowPathIcon,
+    },
+  ],
+  resoures: [
+    {
+      name: "Help Center",
+      description:
+        "Get all of your questions answered in our forums or contact support.",
+      href: "#",
+      icon: LifebuoyIcon,
+    },
+    {
+      name: "Guides",
+      description:
+        "Learn how to maximize our platform to get the most out of it.",
+      href: "#",
+      icon: BookmarkSquareIcon,
+    },
+    {
+      name: "Events",
+      description:
+        "See what meet-ups and other events we might be planning near you.",
+      href: "#",
+      icon: CalendarIcon,
+    },
+    {
+      name: "Security",
+      description: "Understand how we take your privacy seriously.",
+      href: "#",
+      icon: ShieldCheckIcon,
+    },
+  ],
+};
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -99,19 +150,19 @@ function classNames(...classes: any) {
 export const MainNavigation = () => {
   const { pathname, asPath } = useRouter();
   const renderCTAs = () => {
-    if (pathname === pathnames.home || !pathname) {
+    if (pathname.includes("/client")) {
       return {
         mobile: (
           <div>
-            <p className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-primaryBlue hover:bg-indigo-200">
-              <CustomButton version="bg-primaryBlue">Login</CustomButton>
+            <p className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-800 hover:bg-indigo-200">
+              <CustomButton version="bg-primaryBlue">Logout</CustomButton>
             </p>
             <p className="mt-6 text-center text-base font-medium text-gray-500">
               <Link
                 href="/"
                 className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
               >
-                Register
+                Profile
               </Link>
             </p>
           </div>
@@ -123,40 +174,9 @@ export const MainNavigation = () => {
               href="/"
               className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
             >
-              Register
+              Profile
             </Link>
-            <CustomButton version="bg-primaryBlue">Login</CustomButton>
-          </>
-        ),
-      };
-    }
-    if (pathname === pathnames.register) {
-      return {
-        mobile: (
-          <div>
-            <p className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-primaryBlue hover:bg-indigo-200">
-              <CustomButton version="bg-primaryBlue">Login</CustomButton>
-            </p>
-            <p className="mt-6 text-center text-base font-medium text-gray-500">
-              <Link
-                href="/"
-                className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-              >
-                Register
-              </Link>
-            </p>
-          </div>
-        ),
-
-        desktop: (
-          <>
-            <Link
-              href="/"
-              className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-            >
-              Return to homepage
-            </Link>
-            <CustomButton version="bg-primaryBlue">Login</CustomButton>
+            <CustomButton version="bg-red-800">Logout</CustomButton>
           </>
         ),
       };
