@@ -1,28 +1,54 @@
-interface Login {}
+interface Login {
 
-interface Client {}
+    email: string,
+    password: string
+}
 
-interface Server {}
 
-interface Project {}
+interface RegistrationForm {
 
-interface User {}
+    name: string;
+    password: any;
+    email: string;
+    businessName: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+}
 
-interface Invoice {}
+interface Client {
+}
 
-interface Account {}
+interface Server {
+}
 
-interface Breadcrumb {}
+interface Project {
+}
 
-interface Statistics {}
+interface User {
+}
+
+interface Invoice {
+}
+
+interface Account {
+}
+
+interface Breadcrumb {
+}
+
+interface Statistics {
+}
 
 export {
-  Client,
-  Server,
-  Project,
-  User,
-  Invoice,
-  Account,
-  Breadcrumb,
-  Statistics,
+    Client,
+    Server,
+    Project,
+    User,
+    Invoice,
+    Account,
+    Breadcrumb,
+    Statistics,
+    RegistrationForm
 };
