@@ -1,9 +1,9 @@
-const errorHandler = (data: any, res: any, code = 400,) => {
-    res.status(code).json({
+const errorHandler = (data: any, res: any, code: number = 400,) => {
+    return res.status(code).json({
         hasError: true,
         message: data,
-
     });
+
 };
 const userFormValidator = (fields: any) => {
     for (let key in fields) {

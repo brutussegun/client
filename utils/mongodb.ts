@@ -1,6 +1,7 @@
 import {Db, MongoClient} from "mongodb";
+import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI: any = process.env.MONGODB_URI;
 const MONGODB_DB = process.env.MONGODB_DB;
 
 let cachedClient: MongoClient;
@@ -14,7 +15,7 @@ if (!cached) {
     cached = mongo = {conn: null, promise: null}
 }
 
-export async function connectToDatabase() {
+export async function mongoDBConnection() {
     // check the cached.
     if (cachedClient && cachedDb) {
         // load from cache
@@ -57,3 +58,15 @@ export async function connectToDatabase() {
         db: cachedDb,
     };
 }
+
+export const mongooseConnection = async () => {
+    try {
+        const conn = await mongoose.connect(MONGODB_URI);
+        console.log(
+            `MONGOOSE CONNECTION ROUTE IS ON`
+        );
+    } catch (error) {
+        console.log(error);
+        process.exit(1);
+    }
+};
