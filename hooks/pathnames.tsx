@@ -1,7 +1,7 @@
 const pathnames = {
     home: "/",
     register: "/authentication/register",
-    login: "/authentication",
+    login: "/authentication/signin",
     logout: "/logout",
     dashboard: "/dashboard",
     client: "/client",

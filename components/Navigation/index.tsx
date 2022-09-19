@@ -1,5 +1,4 @@
-import React from "react";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import {
   ArrowPathIcon,
@@ -9,139 +8,74 @@ import {
   ChartBarIcon,
   CursorArrowRaysIcon,
   LifebuoyIcon,
-  PhoneIcon,
-  PlayIcon,
   ShieldCheckIcon,
   Squares2X2Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  ChevronDoubleDownIcon,
-  ChevronUpDownIcon,
-} from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import CustomButton from "../Button";
 import Link from "next/link";
-import { pathnames } from "../../hooks/pathnames";
 import { useRouter } from "next/router";
+import { signOut, useSession } from "next-auth/react";
+import { pathnames } from "../../hooks/pathnames";
 
-const solutions = [
-  {
-    name: "Clients",
-    description: "View all Clients in the application",
-    href: "#",
-    icon: ChartBarIcon,
-  },
-  {
-    name: "Projects",
-    description: "View all Projects in the application",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
+// const solutions = [
+//     {
+//         name: "Clients",
+//         description: "View all Clients in the application",
+//         href: "#",
+//         icon: ChartBarIcon,
+//     },
+//     {
+//         name: "Projects",
+//         description: "View all Projects in the application",
+//         href: "#",
+//         icon: CursorArrowRaysIcon,
+//     },
 
-  {
-    name: "Integrations",
-    description: "Connect with third-party tools that you're already using.",
-    href: "#",
-    icon: Squares2X2Icon,
-  },
-  {
-    name: "Automations",
-    description:
-      "Build strategic funnels that will drive your invoicing capabilities",
-    href: "#",
-    icon: ArrowPathIcon,
-  },
-];
-const resources = [
-  {
-    name: "Help Center",
-    description:
-      "Get all of your questions answered in our forums or contact support.",
-    href: "#",
-    icon: LifebuoyIcon,
-  },
-  {
-    name: "Guides",
-    description:
-      "Learn how to maximize our platform to get the most out of it.",
-    href: "#",
-    icon: BookmarkSquareIcon,
-  },
-  {
-    name: "Events",
-    description:
-      "See what meet-ups and other events we might be planning near you.",
-    href: "#",
-    icon: CalendarIcon,
-  },
-  {
-    name: "Security",
-    description: "Understand how we take your privacy seriously.",
-    href: "#",
-    icon: ShieldCheckIcon,
-  },
-];
-
-const navigationLinks = {
-  solution: [
-    {
-      name: "Clients",
-      description: "View all Clients in the application",
-      href: "#",
-      icon: ChartBarIcon,
-    },
-    {
-      name: "Projects",
-      description: "View all Projects in the application",
-      href: "#",
-      icon: CursorArrowRaysIcon,
-    },
-
-    {
-      name: "Integrations",
-      description: "Connect with third-party tools that you're already using.",
-      href: "#",
-      icon: Squares2X2Icon,
-    },
-    {
-      name: "Automations",
-      description:
-        "Build strategic funnels that will drive your invoicing capabilities",
-      href: "#",
-      icon: ArrowPathIcon,
-    },
-  ],
-  resoures: [
-    {
-      name: "Help Center",
-      description:
-        "Get all of your questions answered in our forums or contact support.",
-      href: "#",
-      icon: LifebuoyIcon,
-    },
-    {
-      name: "Guides",
-      description:
-        "Learn how to maximize our platform to get the most out of it.",
-      href: "#",
-      icon: BookmarkSquareIcon,
-    },
-    {
-      name: "Events",
-      description:
-        "See what meet-ups and other events we might be planning near you.",
-      href: "#",
-      icon: CalendarIcon,
-    },
-    {
-      name: "Security",
-      description: "Understand how we take your privacy seriously.",
-      href: "#",
-      icon: ShieldCheckIcon,
-    },
-  ],
-};
+//     {
+//         name: "Integrations",
+//         description: "Connect with third-party tools that you're already using.",
+//         href: "#",
+//         icon: Squares2X2Icon,
+//     },
+//     {
+//         name: "Automations",
+//         description:
+//             "Build strategic funnels that will drive your invoicing capabilities",
+//         href: "#",
+//         icon: ArrowPathIcon,
+//     },
+// ];
+// const resources = [
+//     {
+//         name: "Help Center",
+//         description:
+//             "Get all of your questions answered in our forums or contact support.",
+//         href: "#",
+//         icon: LifebuoyIcon,
+//     },
+//     {
+//         name: "Guides",
+//         description:
+//             "Learn how to maximize our platform to get the most out of it.",
+//         href: "#",
+//         icon: BookmarkSquareIcon,
+//     },
+//     {
+//         name: "Events",
+//         description:
+//             "See what meet-ups and other events we might be planning near you.",
+//         href: "#",
+//         icon: CalendarIcon,
+//     },
+//     {
+//         name: "Security",
+//         description: "Understand how we take your privacy seriously.",
+//         href: "#",
+//         icon: ShieldCheckIcon,
+//     },
+// ];
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -149,13 +83,19 @@ function classNames(...classes: any) {
 
 export const MainNavigation = () => {
   const { pathname, asPath } = useRouter();
-  const renderCTAs = () => {
-    if (pathname.includes("/client")) {
+  const { session, loading }: { session: any; loading: any } = useSession();
+  const router = useRouter();
+  const user = session?.user;
+  console.log(user);
+  const AuthCTAs = () => {
+    if (user) {
       return {
         mobile: (
           <div>
             <p className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-800 hover:bg-indigo-200">
-              <CustomButton version="bg-primaryBlue">Logout</CustomButton>
+              <CustomButton clickFunction={signOut} version="bg-primaryBlue">
+                Logout
+              </CustomButton>
             </p>
             <p className="mt-6 text-center text-base font-medium text-gray-500">
               <Link
@@ -176,7 +116,26 @@ export const MainNavigation = () => {
             >
               Profile
             </Link>
-            <CustomButton version="bg-red-800">Logout</CustomButton>
+            <CustomButton clickFunction={signOut} version="bg-red-800">
+              Logout
+            </CustomButton>
+          </>
+        ),
+      };
+    }
+    if (!user) {
+      return {
+        mobile: (
+          <div>
+            <p className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-800 hover:bg-indigo-200">
+              <Link href={pathnames.login}>Login</Link>
+            </p>
+          </div>
+        ),
+
+        desktop: (
+          <>
+            <Link href={pathnames.login}>Login</Link>
           </>
         ),
       };
@@ -189,10 +148,12 @@ export const MainNavigation = () => {
         <div className="max-w-9xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
-              <a href="#">
-                <span className="sr-only">Swifty</span>
-                <span>SWIFTY</span>
-              </a>
+              <Link href={"/"}>
+                <a>
+                  <span className="sr-only">Swifty</span>
+                  <span>SWIFTY</span>
+                </a>
+              </Link>
             </div>
             <div className="-mr-2 -my-2 md:hidden">
               <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primaryBlue">
@@ -320,7 +281,7 @@ export const MainNavigation = () => {
               </Popover>
             </Popover.Group>
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-              {renderCTAs()?.desktop}
+              {AuthCTAs()?.desktop}
             </div>
           </div>
         </div>
@@ -371,7 +332,7 @@ export const MainNavigation = () => {
                   </nav>
                 </div>
               </div>
-              <div className="py-6 px-5 space-y-6">{renderCTAs()?.mobile}</div>
+              <div className="py-6 px-5 space-y-6">{AuthCTAs()?.mobile}</div>
             </div>
           </Popover.Panel>
         </Transition>

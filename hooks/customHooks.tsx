@@ -64,23 +64,20 @@ const statusBullet = (status: string, content: string) => {
 };
 
 const currencyHandler = (value: number, currency: string) => {
-    const response = new Intl.NumberFormat("en-In", {
+    return new Intl.NumberFormat("en-In", {
         style: "currency",
         currency: currency,
     }).format(value);
-    return response;
 };
 
 const dateDifferences = (date1: string, date2: string) => {
     const firstConvertedDate = dayjs(date1);
     const secondConvertedDate = dayjs(date2);
-
-    const differences = firstConvertedDate.diff(secondConvertedDate, "day");
-    return differences;
+    return firstConvertedDate.diff(secondConvertedDate, "day");
 };
-
 const truncator = (value: string, numOfChar: number): string =>
     value.substring(value.length - numOfChar);
+
 const expiryCalculator = async (date = new Date(), hours: number) => {
     date.setTime(date.getTime() + hours * 60 * 60 * 1000);
     return date;

@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {toast} from "react-toastify";
-import {MainNavigation} from "../../../components/Navigation";
-import {pathnames} from "../../../hooks/pathnames";
+import {MainNavigation} from "../../components/Navigation";
+import {pathnames} from "../../hooks/pathnames";
 import Link from "next/link";
-import {useSession} from "next-auth/react";
+import {signIn, useSession} from "next-auth/react";
 
 const AuthenticationDefault = (props: any) => {
     return <>
@@ -100,6 +100,7 @@ const LoginContent = () => {
                             </p>
                         </button>
                         <button
+                            onClick={() => signIn('github')}
                             aria-label="Continue with github"
                             role="button"
                             className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 p-3 border rounded-lg border-gray-700 flex items-center w-full mt-4 hover:bg-gray-100"

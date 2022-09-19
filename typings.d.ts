@@ -10,6 +10,15 @@ interface RegistrationForm {
     name: string;
     password: any;
     email: string;
+
+}
+
+
+interface ProfileForm {
+
+    name: string;
+    password: any;
+    email: string;
     businessName: string;
     address: string;
     city: string;
@@ -50,5 +59,6 @@ export {
     Account,
     Breadcrumb,
     Statistics,
-    RegistrationForm
+    RegistrationForm,
+    ProfileForm
 };
